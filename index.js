@@ -10,11 +10,11 @@ app.use(cors());
 app.use(express.json());
 
 // CREATE
-app.post("/personas", async (req, res) => {
+app.post("/personass", async (req, res) => {
     const { nombre, edad } = req.body;
     try {
         const [result] = await pool.query(
-            "INSERT INTO personas (nombre, edad) VALUES (?, ?)",
+            "INSERT INTO personass (nombre, edad) VALUES (?, ?)",
             [nombre, edad]
         );
         res.json({ id: result.insertId, nombre, edad });
@@ -24,9 +24,9 @@ app.post("/personas", async (req, res) => {
 });
 
 // READ
-app.get("/personas", async (req, res) => {
+app.get("/personass", async (req, res) => {
     try {
-        const [rows] = await pool.query("SELECT * FROM personas");
+        const [rows] = await pool.query("SELECT * FROM personass");
         res.json(rows);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -34,11 +34,11 @@ app.get("/personas", async (req, res) => {
 });
 
 // UPDATE
-app.put("/personas/:id", async (req, res) => {
+app.put("/personass/:id", async (req, res) => {
     const { id } = req.params;
     const { nombre, edad } = req.body;
     try {
-        await pool.query("UPDATE personas SET nombre = ?, edad = ? WHERE id = ?", [
+        await pool.query("UPDATE personass SET nombre = ?, edad = ? WHERE id = ?", [
             nombre,
             edad,
             id,
@@ -50,10 +50,10 @@ app.put("/personas/:id", async (req, res) => {
 });
 
 // DELETE
-app.delete("/personas/:id", async (req, res) => {
+app.delete("/personass/:id", async (req, res) => {
     const { id } = req.params;
     try {
-        await pool.query("DELETE FROM personas WHERE id = ?", [id]);
+        await pool.query("DELETE FROM personass WHERE id = ?", [id]);
         res.send("Persona eliminada");
     } catch (err) {
         res.status(500).json({ error: err.message });
